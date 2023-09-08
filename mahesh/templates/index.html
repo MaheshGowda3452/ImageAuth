@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image preview</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"
+      integrity="sha512-3dZ9wIrMMij8rOH7X3kLfXAzwtcHpuYpEgQg1OA4QAob1e81H8ntUQmQm3pBudqIoySO5j0tHN4ENzA6+n2r4w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+    <style>
+      body{
+        margin: 50px;
+      }
+      .uploadOuter {
+        text-align: center;
+        padding: 20px;
+      }
+      .uploadOuter strong {
+        padding: 0 10px;
+      }
+      .dragBox {
+        width: 250px;
+        height: 100px;
+        margin: 0 auto;
+        position: relative;
+        text-align: center;
+        font-weight: bold;
+        line-height: 95px;
+        color: #999;
+        border: 2px dashed #ccc;
+        display: inline-block;
+        transition: transform 0.3s;
+      }
+      .dragBox input[type="file"] {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        top: 0;
+        left: 0;
+      }
+      .draging {
+        transform: scale(1.1);
+      }
+      #preview {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      #preview img {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h2>Hello,  {{ session }} </h2>
+    </center>
+    <div class="uploadOuter">
+      <label for="uploadFile" class="btn btn-primary">Upload Image</label>
+      <strong>OR</strong>
+      <span class="dragBox">
+        Darg and Drop image here
+        <form action="/image-preview" method="post" enctype="multipart/form-data">
+          <input
+            type="file"
+            onChange="dragNdrop(event)"
+            ondragover="drag()"
+            ondrop="drop()"
+            id="uploadFile"
+            name="image"
+            accept="image/png, image/gif, image/jpeg"
+          />
+      </span>
+    </div>
+      <div id="preview"></div>
+        <center>
+          <input type="submit" id="submitButton" class="btn btn-primary" style="display: none;" />
+        </center>
+      </form>
+      <a style="position: absolute;right: 0;top: 0; margin: 20px;" href="/logout" class="btn btn-danger">LOGOUT</a>
+  </body>
+  <script>
+    "use strict";
+    function dragNdrop(event) {
+      var fileName = URL.createObjectURL(event.target.files[0]);
+      var preview = document.getElementById("preview");
+      var previewImg = document.createElement("img");
+      previewImg.setAttribute("src", fileName);
+      preview.innerHTML = "";
+      preview.appendChild(previewImg);
+      document.getElementById('submitButton').style.display="block";
+    }
+    function drag() {
+      document.getElementById("uploadFile").parentNode.className =
+        "draging dragBox";
+    }
+    function drop() {
+      document.getElementById("uploadFile").parentNode.className = "dragBox";
+    }
+  </script>
+</html>
