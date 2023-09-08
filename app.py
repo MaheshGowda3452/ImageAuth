@@ -10,8 +10,8 @@ import io
 from auth_decorator import login_required
 # from authlib.integrations.starlette_client import OAuth
 # dotenv setup
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 
 # App config
