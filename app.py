@@ -113,5 +113,5 @@ def imagePreview():
     print(request.files['image'].filename)
     return render_template("/image-preview/preview.html",img=[data,request.files['image'].filename])
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
