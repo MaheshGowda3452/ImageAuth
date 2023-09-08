@@ -2,3 +2,4 @@ Authlib==0.14.3
 Flask==2.*
 Flask_OAuthlib==0.9.6
 Pillow==9.4.0
+gunicorn==19.7.1
